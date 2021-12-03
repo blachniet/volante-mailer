@@ -13,8 +13,8 @@
     "nodemailer": "^6.4.6"
   },
   "devDependencies": {
-    "volante": "^3.0.0",
-    "volante-console": "^2.3.0"
+    "volante": "^5.0.0",
+    "volante-console": "^4.0.0"
   },
   "keywords": [
     "volante"

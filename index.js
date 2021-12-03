@@ -6,15 +6,18 @@ const nodemailer = require('nodemailer');
 //
 module.exports = {
 	name: 'VolanteMailer',
-	events: {
-	  'VolanteMailer.send'(msg, callback) {
-      this.sendMessage(msg, callback);
-	  }
-  },
 	props: {
 		enabled: true,
 		testAccount: false,
 		transport: null,
+  },
+  stats: {
+  	sentEmails: 0,
+  },
+	events: {
+	  'VolanteMailer.send'(msg, callback) {
+      this.sendMessage(msg, callback);
+	  }
   },
   data() {
 		return {
@@ -60,7 +63,7 @@ module.exports = {
 						if (err) {
 							return this.$error('error verifying node mailer smtp transporter', err);
 						}
-						this.$log(`SMTP transporter at ${this.transport.host} verified`);
+						this.$ready(`SMTP transporter at ${this.transport.host} verified`);
 					});
 
 	      } catch (e) {
@@ -74,6 +77,7 @@ module.exports = {
 	  	if (this.enabled) {
 				if (msg.from && msg.to && msg.subject && (msg.text || msg.html)) {
 		  		this.transporter.sendMail(msg, callback);
+		  		this.sentEmails++;
 				} else {
 					this.$warn('msg missing required fields, need {from, to, subject, text || html}');
 				}

@@ -24,11 +24,6 @@ module.exports = {
 	    transporter: null,
 		};
   },
-  init() {
-  	if (this.configProps) {
-  		this.initializeTransporter();
-  	}
-  },
 	updated() {
 		if (this.testAccount) {
 			this.$debug('creating test account using ethereal mail');
